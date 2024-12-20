@@ -43,7 +43,7 @@ export default function Otpregister() {
     }
 
     try {
-      const res = await axios.post('http://192.168.165.205:3002/auth/verify', { phone, otp: otpCode });
+      const res = await axios.post('http://192.168.179.205:3002/auth/verify', { phone, otp: otpCode });
       if (res.data.success) {
         showSuccess("OTP verified successfully!");
         // Redirect to user dashboard or next step
@@ -59,7 +59,7 @@ export default function Otpregister() {
 
   const handleResend = async () => {
     try {
-      const res = await axios.post('http://192.168.165.205:3002/auth/send', { phone });
+      const res = await axios.post('http://192.168.179.205:3002/auth/send', { phone });
       if (res.data.success) {
         showSuccess("OTP resent successfully!");
       } else {

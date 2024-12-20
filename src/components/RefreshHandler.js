@@ -6,42 +6,38 @@ export default function RefreshHandler({ setIsAuthenticated }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('jwtToken'); // Get the token from localStorage
- 
+    const token = localStorage.getItem('jwtToken'); // Get token
+    const phone = localStorage.getItem('phone'); // Get phone for OTP registration
+
     console.log('Token in RefreshHandler:', token); // Debugging log
 
-    // Check if the user is authenticated
     if (token) {
+      // User is authenticated
       setIsAuthenticated(true);
 
-      // Prevent navigating to signin/signup if already logged in
-      if (location.pathname === '/signin' || location.pathname === '/signup') {
-        navigate('/', { replace: true }); // Redirect to homepage instead of signin/signup
+      // Prevent navigating to auth pages if logged in
+      if (['/signin', '/signup'].includes(location.pathname)) {
+        navigate('/', { replace: true });
       }
     } else {
       // User is not authenticated
-      console.log('No token found, clearing localStorage and redirecting to login.');
-      localStorage.clear();
-      setIsAuthenticated(false);
+      console.log('No token found. Checking for otpregister access.');
 
-      // Redirect to signin if trying to access protected pages (but not /otpregister)
-      if (
-        location.pathname !== '/signin' &&
-        location.pathname !== '/signup' &&
-        location.pathname !== '/' &&
-        location.pathname !== '/otpregister'
-      ) {
+      // Allow unauthenticated access to certain pages
+      if (!['/signin', '/signup', '/otpregister'].includes(location.pathname)) {
+        // If it's not an allowed page, clear storage and redirect
+        localStorage.clear();
+        setIsAuthenticated(false);
         navigate('/signin', { replace: true });
       }
     }
 
-    // /otpregister can be accessed by anyone, regardless of authentication
-    if (location.pathname === '/otpregister') {
-      // Allow access to OTP register page without any conditions
-      return;
+    // Ensure `/otpregister` works correctly
+    if (location.pathname === '/otpregister' && !phone) {
+      console.log('Missing phone in localStorage for otpregister. Redirecting to signup.');
+      navigate('/signup', { replace: true });
     }
-
   }, [location, navigate, setIsAuthenticated]);
 
-  return null; // This component doesn't render anything
+  return null; // No UI rendering
 }

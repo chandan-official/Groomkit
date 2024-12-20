@@ -87,6 +87,7 @@ function App() {
           <Route path="/store" element={<Store />} />
           <Route path="/dropdown" element={<Dropdown />} />
           <Route path="/accountdrop" element={<Accountdrop />} />
+          <Route path="/home" element={<Homepage />} />
 
           {/* Protected Routes */}
           <Route

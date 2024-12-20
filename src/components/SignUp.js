@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import { showError, showSuccess } from './Utils';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment'; // Import moment
+import moment from 'moment';
 
 export default function SignUp() {
   const [name, setName] = useState('');
@@ -17,7 +17,7 @@ export default function SignUp() {
   const [dob, setDob] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  
+
   const navigate = useNavigate();
 
   const handleDateChange = (date) => {
@@ -26,56 +26,58 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!name || !email || !phone || !dob || !password || !confirmPassword) {
       showError('Please fill in all fields.');
       return;
     }
-
+  
     if (password !== confirmPassword) {
       showError('Passwords do not match.');
       return;
     }
-
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
+  
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
       showError('Invalid email address.');
       return;
     }
-
+  
     if (!/^\d{10}$/.test(phone)) {
       showError('Phone number must be 10 digits.');
       return;
     }
-
+  
     try {
-      // Use moment to format DOB into 'YYYY-MM-DD' format before sending it to the backend
-      const formattedDob = moment(dob).format('YYYY-MM-DD'); // Format to 'YYYY-MM-DD'
-
-      const res = await axios.post('http://192.168.165.205:3002/auth/signup', {
+      const formattedDob = moment(dob).format('YYYY-MM-DD');
+      const signupResponse = await axios.post('http://192.168.179.205:3002/auth/signup', {
         name,
         email,
         phone,
         password,
         dob: formattedDob,
       });
-
-      if (res.data.success) {
-        showSuccess('Account created successfully!');
-        localStorage.setItem('phone', phone); // Save phone number to localStorage
-        localStorage.setItem('email', email); // Optional: save email if needed
-
-        setTimeout(() => {
-          // Redirect to OTP registration page
-          navigate('/otpregister', { state: { phone } });
-        }, 2000);
-        
-      } else {
-        showError(res.data.message || 'Signup failed.');
+  
+      if (!signupResponse.data.success) {
+        throw new Error(signupResponse.data.message || 'Signup failed.');
       }
-    } catch (err) {
-      showError(err.response?.data?.message || 'Server error.');
+  
+      // Combine OTP sending in one step for better UX
+      const otpResponse = await axios.post('http://192.168.179.205:3002/auth/send', { phone },{ headers: { 'Content-Type': 'application/json' } });
+      if (!otpResponse.data.success) {
+        throw new Error(otpResponse.data.message || 'Failed to send OTP.');
+      }
+  
+      showSuccess('Account created successfully! OTP sent to your phone.');
+      localStorage.setItem('phone', phone);
+      localStorage.setItem('email', email);
+  
+      navigate('/otpregister', { state: { phone } });
+    } catch (error) {
+      console.error('Signup Error:', error.message);
+      showError(error.message || 'Server error.');
     }
   };
+  
 
   return (
     <div className="Signup-form">
