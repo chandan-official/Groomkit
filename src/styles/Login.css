@@ -1,0 +1,233 @@
+/* General styles */
+* {
+    font-family: "Titillium Web", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #5F41E4;
+    padding: 0 1rem; /* Add padding for smaller screens */
+}
+
+:root {
+    width: 100%;
+}
+
+/* Login Container */
+.login {
+    max-width: 450px;
+    width: 100%; /* Adjust to screen size */
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    padding: 2rem 1.5rem;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.login .form-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+/* Social Login Buttons */
+.login .social-login {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+}
+
+.social-login .social-button {
+    display: flex;
+    width: 100%; /* Make buttons fluid on smaller screens */
+    max-width: 300px;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.75rem 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    justify-content: center;
+    background: #F9F8FF;
+    border: 1px solid #D5CBFF;
+    transition: 0.3s ease;
+}
+
+.social-login .social-button:hover {
+    background: #F1EFF9;
+    border-color: #5F41E4;
+}
+
+.social-login .social-button .social-icon {
+    width: 20px;
+}
+
+/* Separator */
+.login .separator {
+    margin: 1.5rem 0;
+    text-align: center;
+    position: relative;
+}
+
+.login .separator span {
+    position: relative;
+    z-index: 1;
+    background: #fff;
+    padding: 0 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.login .separator::after {
+    position: absolute;
+    content: "";
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 1px;
+    background: #BFB3F2;
+}
+
+/* Input Fields */
+.login-form .input-wrapper {
+    height: 56px;
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.login-form .input-wrapper .input-field {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #BFB3F2;
+    padding: 0 1rem 0 3rem;
+    transition: 0.2s ease;
+}
+
+.login-form .input-wrapper .input-field:focus {
+    border-color: #5F41E4;
+}
+
+.login-form .input-wrapper .input-field::placeholder {
+    color: #A395E0;
+}
+
+.login-form .input-wrapper i {
+    color: #A395E0;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: 0.2s ease;
+}
+
+.login-form .input-wrapper i:not(.eye-icon) {
+    left: 0.9rem;
+    pointer-events: none;
+}
+
+.login-form .input-wrapper .input-field:focus ~ i:not(.eye-icon) {
+    color: #5F41E4;
+}
+
+.login-form .input-wrapper i.eye-icon {
+    right: 0.9rem;
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: none;
+}
+
+.login-form .input-wrapper .input-field:valid ~ i.eye-icon {
+    display: block;
+}
+
+/* Forgot Password */
+.login .forgot-pass {
+    display: block;
+    width: fit-content;
+    margin-top: -0.5rem;
+}
+
+/* Login Button */
+.login-form .login-btn {
+    width: 100%;
+    height: 56px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    color: #fff;
+    font-size: 1.125rem;
+    font-weight: 500;
+    background: #5F41E4;
+    margin-top: 2rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.login-form .login-btn:hover {
+    background: #4320DF;
+}
+
+/* Signup Text */
+.login .signup-text {
+    text-align: center;
+    font-weight: 500;
+    margin: 1.75rem 0 0.5rem;
+}
+
+.login a {
+    color: #5F41E4;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.login a:hover {
+    text-decoration: underline;
+    color: #4320DF;
+}
+
+/* Media Queries */
+
+/* For screens smaller than 768px (Mobile) */
+@media (max-width: 768px) {
+    .body {
+        padding: 0 1rem;
+    }
+
+    .login {
+        padding: 1.5rem 1rem;
+    }
+
+    .login .social-login {
+        flex-direction: column; /* Stack buttons */
+        gap: 0.75rem;
+    }
+
+    .social-login .social-button {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .login .form-title {
+        font-size: 1.25rem;
+    }
+}
+
+/* For screens larger than 1024px (Desktop) */
+@media (min-width: 1024px) {
+    .login {
+        max-width: 450px;
+        padding: 2rem;
+    }
+}

@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+}
+
+:root {
+    --primaryColor: #5F41E4;
+    --hoverColor: #5F41E4;
+    --textColor: white;
+}
+
+.link-container {
+    display: flex; /* Arrange buttons side by side */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Align content vertically */
+}
+
+.play-link{
+    width: 250px; /* Fixed width */
+    background-color: #5F41E4; /* Background color */
+    color: var(--textColor); /* Text color */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Ensure content stays within bounds */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    border: none; /* Remove border */
+    border-width: 0;
+    border-color: #5F41E4;
+}
+
+.app-link{
+    width: 250px; /* Fixed width */
+    background-color: #5F41E4; /* Background color */
+    color: var(--textColor); /* Text color */
+    display: flex; /* Use flexbox for layout */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    border-radius: 10px; /* Rounded corners */
+    overflow: hidden; /* Ensure content stays within bounds */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    border: none; /* Remove border */
+    border-radius: 0;
+    border-color: #5F41E4;
+}
+
+.playstore-icon {
+    width: 100%; /* Icon size */
+    height: auto; /* Maintain aspect ratio */
+    display: block; /* Block element */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+    object-fit: cover;
+}
+
+.play-link:hover, .app-link:hover {
+    background-color: var(--hoverColor); /* Slightly darker background on hover */
+}
+
+.play-link:hover .playstore-icon, .app-link:hover .playstore-icon {
+    transform: scale(1.1); /* Slight zoom effect on hover */
+}

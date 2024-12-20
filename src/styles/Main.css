@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Titillium Web", sans-serif;
+}
+
+:root {
+    --mainColor: rgb(55, 53, 53);
+    --mainColorlight: teal;
+    --secondaryColor: rgb(0, 179, 239);
+    --primaryColor: teal; /* Added missing variable */
+    --textColor: white;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    padding: 0 1rem;
+    color: var(--textColor);
+    display: flex; /* Corrected display property */
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--mainColor);
+    font-weight: 700;
+    font-size: 2.5rem;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+    z-index: 1000;
+}
+
+nav a {
+    margin: 0 3rem;
+    color: var(--textColor);
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem; /* Added padding for hover consistency */
+    transition: transform 0.3s ease, color 0.3s ease; /* Smoother hover effects */
+    cursor: pointer;
+}
+
+nav a:hover {
+    transform:scale(1.3);
+    color: var(--mainColor);
+    border-radius: 25px;
+    background-color: var(--textColor);
+}
+
+.profile-btn {
+    font-size: 1.3rem;
+    background-color: var(--mainColor);
+    border: none; /* Cleaner shorthand for `border-width: 0;` */
+    padding: 0.2rem 0.5rem;
+    border-radius: 25px;
+    color: var(--textColor);
+    outline: none;
+    cursor: pointer; /* Adds pointer for better UX */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover */
+}
+
+.profile-btn:hover {
+    background-color: white;
+    color: var(--mainColor);
+    border: 1px solid var(--primaryColor); /* Corrected border-width */
+}
+
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        height: auto;
+        padding: 1rem;
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+    }
+
+    nav a {
+        margin: 0.5rem;
+        font-size: 1rem;
+    }
+
+    .profile-btn {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+}

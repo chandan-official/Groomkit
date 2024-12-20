@@ -1,0 +1,188 @@
+/* Global Styles */
+* {
+    font-family: "Titillium Web", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #5F41E4;
+    --error-color: red;
+    --success-color: green;
+    --input-width: 40px;
+}
+
+/* Body Styling */
+.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--primary-color);
+    padding: 0 1rem;
+}
+
+/* OTP Registration Container */
+.otpregister {
+    max-width: 750px;
+    width: 100%;
+    margin: 0 auto;
+    border-radius: 0.5rem;
+    padding: 2rem 1.5rem;
+    background: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* Form Title */
+.form-title {
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 700;
+    margin-bottom: 1.7rem;
+    color: var(--primary-color);
+}
+
+/* OTP Wrapper */
+.otp-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem; /* Space between input fields and button */
+}
+
+/* OTP Input Styling */
+.otp-input {
+    width: var(--input-width);
+    border: none;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.5);
+    margin: 0 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+.otp-inputs{
+    align-items: center;
+}
+
+.otp-input:focus {
+    border-bottom: 3px solid var(--primary-color);
+    box-shadow: 0 2px 5px rgba(95, 65, 228, 0.5);
+}
+
+/* Placeholder Styling */
+.otp-input::placeholder {
+    color: rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+/* Error and Success Text */
+.error-text {
+    color: var(--error-color);
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.success-text {
+    color: var(--success-color);
+    font-size: 14px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Button Styling */
+.otp-btn {
+    background-color: #BFB3F2;
+    color: rgb(93, 79, 79);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 77%;
+    height: 45px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.otp-btn:hover {
+    background-color: #5F41E4;
+    color: white;
+}
+
+.separator{
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-top: 0.4rem;
+    margin-bottom: 0.4rem;
+}
+.separator-details{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    margin-top: 0.1rem;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.separator-details a{
+    color: #BFB3F2;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+.separator-details a:hover{
+    color: #5F41E4;
+}
+
+.resend{
+    margin-bottom: 0.4rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.resend a{
+    color: #BFB3F2;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.resend a:hover{
+    color: #5F41E4;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .otpregister {
+        padding: 1.5rem 1rem;
+    }
+
+    :root {
+        --input-width: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .otpregister {
+        padding: 1rem;
+    }
+
+    .form-title {
+        font-size: 1.2rem;
+    }
+
+    :root {
+        --input-width: 25px;
+    }
+}
