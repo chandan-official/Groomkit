@@ -4,114 +4,157 @@ import Signupsocialsign from './Signupsocialsign';
 import Signupinput from './Signupinput';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
-
+import { ToastContainer } from 'react-toastify';
+import { showError, showSuccess } from './Utils';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment'; // Import moment
 
 export default function SignUp() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [dob, setDob] = useState(null);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  
   const navigate = useNavigate();
+
+  const handleDateChange = (date) => {
+    setDob(date);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
 
-    // Validate form inputs
-    if (!name || !email || !phone || !password || !confirmPassword) {
-      setError('Please fill in all fields.');
+    if (!name || !email || !phone || !dob || !password || !confirmPassword) {
+      showError('Please fill in all fields.');
       return;
     }
+
     if (password !== confirmPassword) {
-      setError('Passwords do not match.');
+      showError('Passwords do not match.');
       return;
     }
+
     if (!/^\S+@\S+\.\S+$/.test(email)) {
-      setError('Please enter a valid email address.');
+      showError('Invalid email address.');
       return;
     }
+
     if (!/^\d{10}$/.test(phone)) {
-      setError('Please enter a valid 10-digit phone number.');
-      return;
-    }
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long.');
+      showError('Phone number must be 10 digits.');
       return;
     }
 
     try {
-      const response = await axios.post('http://localhost:3002/signup', {
+      // Use moment to format DOB into 'YYYY-MM-DD' format before sending it to the backend
+      const formattedDob = moment(dob).format('YYYY-MM-DD'); // Format to 'YYYY-MM-DD'
+
+      const res = await axios.post('http://192.168.165.205:3002/auth/signup', {
         name,
         email,
         phone,
         password,
-      }
-    );
-    if (response.data.success) {
-        setSuccess('Account created successfully!');
-        console.log('Response:', response.data);
+        dob: formattedDob,
+      });
+
+      if (res.data.success) {
+        showSuccess('Account created successfully!');
+        localStorage.setItem('phone', phone); // Save phone number to localStorage
+        localStorage.setItem('email', email); // Optional: save email if needed
+
         setTimeout(() => {
-          navigate('/signin');
+          // Redirect to OTP registration page
+          navigate('/otpregister', { state: { phone } });
         }, 2000);
-      }
-       else {
-        setError(response.data.message || 'Signup failed. Please try again.');
+        
+      } else {
+        showError(res.data.message || 'Signup failed.');
       }
     } catch (err) {
-      console.error('Error:', err);
-      setError(err.response?.data?.message || 'Failed to create account. Please try again.');
+      showError(err.response?.data?.message || 'Server error.');
     }
   };
 
   return (
     <div className="Signup-form">
       <h2 className="form-title">Create Account</h2>
-      <Signupsocialsign />
+      <div className="social-login">
+        <Signupsocialsign />
+      </div>
       <p className="separator">
         <span>or</span>
       </p>
-      <form onSubmit={handleSubmit} className="signup-form">
-        <Signupinput
-          type="text"
-          placeholder="Full Name"
-          logo="person"
-          onChange={(e) => setName(e.target.value)}
-        />
-        <Signupinput
-          type="email"
-          placeholder="Email Address"
-          logo="mail"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Signupinput
-          type="tel"
-          placeholder="Phone Number"
-          logo="call"
-          onChange={(e) => setPhone(e.target.value)}
-        />
-        <Signupinput
-          type="password"
-          placeholder="Password"
-          logo="lock"
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Signupinput
-          type="password"
-          placeholder="Confirm Password"
-          logo="lock"
-          onChange={(e) => setConfirmPassword(e.target.value)}
-        />
-        <button type="submit" className="signup-btn">
-          Sign Up
-        </button>
+      <form onSubmit={handleSubmit}>
+        <div className="input-wrapper">
+          <Signupinput
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            logo="person"
+            onChange={(e) => setName(e.target.value)}
+            value={name}
+          />
+        </div>
+        <div className="input-wrapper">
+          <Signupinput
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            logo="mail"
+            onChange={(e) => setEmail(e.target.value)}
+            value={email}
+          />
+        </div>
+        <div className="input-wrapper">
+          <Signupinput
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            logo="call"
+            onChange={(e) => setPhone(e.target.value)}
+            value={phone}
+          />
+        </div>
+        <div className="date-picker">
+          <label htmlFor="dob" className="date-picker-label">Date of Birth</label>
+          <DatePicker
+            id="dob"
+            selected={dob}
+            onChange={handleDateChange}
+            placeholderText="Date of Birth"
+            dateFormat="yyyy-MM-dd"
+            maxDate={new Date()}
+            showYearDropdown
+            showMonthDropdown
+            dropdownMode="select"
+            className="date-input"
+          />
+        </div>
+        <div className="input-wrapper">
+          <Signupinput
+            type="password"
+            name="password"
+            placeholder="Password"
+            logo="lock"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+          />
+        </div>
+        <div className="input-wrapper">
+          <Signupinput
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            logo="lock"
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            value={confirmPassword}
+          />
+        </div>
+        <button type="submit" className="signup-btn">Sign Up</button>
       </form>
-      {error && <p className="error-text">{error}</p>}
-      {success && <p className="success-text">{success}</p>}
+      <ToastContainer />
       <p className="signin-text">
         Already have an account? <a href="/signin">Signin Now</a>
       </p>

@@ -19,7 +19,7 @@ export default function Usernav(props) {
     <header>
       <h3>{props.title}</h3>
       <nav ref={navRef}>
-        <a href='/'>Home</a>
+        <a href='/userpage'>Home</a>
         <a href='/#'>Services</a>
         <a href='/#'>About Us</a>
         <a href='/#'>Contact Us</a>

@@ -8,6 +8,7 @@
 
 :root {
     --primary-color: #5F41E4;
+    --secondary-color: #BFB3F2;
     --error-color: red;
     --success-color: green;
     --input-width: 40px;
@@ -52,25 +53,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem; /* Space between input fields and button */
+    gap: 1rem;
 }
 
 /* OTP Input Styling */
+.otp-inputs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
 .otp-input {
     width: var(--input-width);
+    height: 50px;
     border: none;
     border-bottom: 3px solid rgba(0, 0, 0, 0.5);
-    margin: 0 10px;
     text-align: center;
     font-size: 1.5rem;
     font-weight: 600;
     outline: none;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-}
-.otp-inputs{
-    align-items: center;
 }
 
 .otp-input:focus {
@@ -78,7 +80,6 @@
     box-shadow: 0 2px 5px rgba(95, 65, 228, 0.5);
 }
 
-/* Placeholder Styling */
 .otp-input::placeholder {
     color: rgba(0, 0, 0, 0.3);
     text-align: center;
@@ -87,79 +88,87 @@
 /* Error and Success Text */
 .error-text {
     color: var(--error-color);
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
     text-align: center;
 }
 
 .success-text {
     color: var(--success-color);
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
     text-align: center;
 }
 
 /* Button Styling */
 .otp-btn {
-    background-color: #BFB3F2;
-    color: rgb(93, 79, 79);
-    padding: 0.5rem 1rem;
+    background-color: var(--secondary-color);
+    color: #5D4F4F;
+    padding: 0.7rem 1rem;
     border: none;
     border-radius: 0.5rem;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    width: 77%;
-    height: 45px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 80%;
+    max-width: 300px;
+    height: 50px;
     margin-top: 2rem;
-    margin-bottom: 2rem;
     text-align: center;
 }
 
 .otp-btn:hover {
-    background-color: #5F41E4;
+    background-color: var(--primary-color);
     color: white;
 }
 
-.separator{
-    font-size: 1.3rem;
+/* Separators */
+.separator {
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-top: 0.4rem;
-    margin-bottom: 0.4rem;
+    margin: 1rem 0;
+    text-align: center;
 }
-.separator-details{
+
+.separator-details {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.1rem;
-    margin-top: 0.1rem;
+    gap: 0.5rem;
     font-weight: 600;
-    font-size: 1.2rem;
-}
-.separator-details a{
-    color: #BFB3F2;
-    text-decoration: none;
-    font-size: 1.2rem;
-}
-.separator-details a:hover{
-    color: #5F41E4;
+    font-size: 1rem;
 }
 
-.resend{
-    margin-bottom: 0.4rem;
-    font-size: 1.1rem;
+.separator-details a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.separator-details a:hover {
+    color: var(--primary-color);
+}
+
+/* Resend Link */
+.resend {
+    margin-top: 1rem;
+    font-size: 1rem;
     font-weight: 600;
+    text-align: center;
 }
 
-.resend a{
-    color: #BFB3F2;
-    text-decoration: none;
-    font-size: 1.2rem;
+.resend button {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
-.resend a:hover{
-    color: #5F41E4;
+.resend button:hover {
+    color: var(--primary-color);
 }
 
 /* Responsive Design */
@@ -179,7 +188,7 @@
     }
 
     .form-title {
-        font-size: 1.2rem;
+        font-size: 1.5rem;
     }
 
     :root {

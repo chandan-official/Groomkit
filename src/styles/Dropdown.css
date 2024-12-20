@@ -17,8 +17,8 @@
 .drop-down-list {
     position: absolute;
     top: 85px; /* Adjust based on header height */
-    right: 1rem;
-    width: 230px;
+    right: 0.55rem;
+    width: 225px;
     z-index: 1000;
     background-color: var(--mainColor);
     display: flex;

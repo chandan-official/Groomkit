@@ -1,42 +1,124 @@
 import './App.css';
+import { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/Login';
-import './components/Navbar';
 import SignUp from './components/SignUp';
-import Navbar from './components/Navbar';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Otpregister from './components/Otpregister';
 import Dropdown from './components/Dropdown';
-import Landing from './components/Landing';
 import Homepage from './components/Homepage';
 import Service from './components/Service';
 import Store from './components/Store';
-import Accountdrop from './components/Accountdrop'
+import Accountdrop from './components/Accountdrop';
 import Userpage from './components/Userpage';
-import Usernav from './components/Usernav';
 import Profile from './components/Profile';
-function App() {
-  return (
-    
-    <div className='container my-3'>
-     <BrowserRouter>
-     <Routes>
-      <Route path='/' element={<Homepage/>}/>
-      <Route path='/nav' element={<Navbar title='GroomKit'/>}/>
-      <Route path='/signup' element={<SignUp/>}/>
-      <Route path='/signin' element={<Login/>}/>
-      <Route path='/dropdown' element={<Dropdown/>}/>
-      <Route path='/landing' element={<Landing/>}/>
-      <Route path='/otpregister' element={<Otpregister/>}/>
-      <Route path='/service'element={<Service/>}/>
-      <Route path='/store'element={<Store/>}/>
-      <Route path='accountdrop'element={<Accountdrop/>}/>
-      <Route path='userpage'element={<Userpage/>}/>
-      <Route path='usernav'element={<Usernav/>}/>
-      <Route path='profile'element={<Profile/>}/>
-     </Routes>
-     </BrowserRouter>
-    </div>
+import RefreshHandler from './components/RefreshHandler';
+import Inputpic from './components/Inputpic';
+import NotFound from './components/NotFound';
 
+// PrivateRoute Component
+const PrivateRoute = ({ isAuthenticated, children }) => {
+  if (!isAuthenticated) {
+    localStorage.clear(); // Clear session-related data
+    return <Navigate to="/signin" replace />;
+  }
+  return children;
+};
+
+// PublicRoute Component
+const PublicRoute = ({ isAuthenticated, children }) => {
+  if (isAuthenticated) {
+    return <Navigate to="/userpage" replace />; // Redirect to /userpage if authenticated
+  }
+  return children;
+};
+
+function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // Check authentication state on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('jwtToken');
+    setIsAuthenticated(!!token); // Update state based on token presence
+  }, []);
+
+  // Monitor changes to localStorage to sync authentication state
+  useEffect(() => {
+    const syncAuth = () => {
+      const token = localStorage.getItem('jwtToken');
+      setIsAuthenticated(!!token);
+    };
+
+    window.addEventListener('storage', syncAuth);
+    return () => window.removeEventListener('storage', syncAuth);
+  }, []);
+
+  return (
+    <BrowserRouter>
+      <RefreshHandler setIsAuthenticated={setIsAuthenticated} />
+      <div className="container my-3">
+        <Routes>
+          {/* Public Routes */}
+          <Route
+            path="/"
+            element={
+              <PublicRoute isAuthenticated={isAuthenticated}>
+                <Homepage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <PublicRoute isAuthenticated={isAuthenticated}>
+                <SignUp />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              <PublicRoute isAuthenticated={isAuthenticated}>
+                <Login setIsAuthenticated={setIsAuthenticated} />
+              </PublicRoute>
+            }
+          />
+          <Route path="/otpregister" element={<Otpregister />} />
+          <Route path="/service" element={<Service />} />
+          <Route path="/store" element={<Store />} />
+          <Route path="/dropdown" element={<Dropdown />} />
+          <Route path="/accountdrop" element={<Accountdrop />} />
+
+          {/* Protected Routes */}
+          <Route
+            path="/userpage"
+            element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <Userpage />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/inputpic"
+            element={
+              <PrivateRoute isAuthenticated={isAuthenticated}>
+                <Inputpic />
+              </PrivateRoute>
+            }
+          />
+
+          {/* Catch-all Route */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 

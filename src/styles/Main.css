@@ -53,6 +53,7 @@ nav a:hover {
 }
 
 .profile-btn {
+    margin: 0 1rem;
     font-size: 1.3rem;
     background-color: var(--mainColor);
     border: none; /* Cleaner shorthand for `border-width: 0;` */
@@ -67,7 +68,6 @@ nav a:hover {
 .profile-btn:hover {
     background-color: white;
     color: var(--mainColor);
-    border: 1px solid var(--primaryColor); /* Corrected border-width */
 }
 
 @media (max-width: 768px) {

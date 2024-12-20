@@ -21,6 +21,34 @@ body {
     width: 100%;
 }
 
+/* General Placeholder Styling */
+::placeholder {
+    color: #A395E0;
+    opacity: 1; /* Ensures the color is not transparent */
+}
+
+input::-webkit-input-placeholder {
+    color: #A395E0;
+}
+
+input::-moz-placeholder {
+    color: #A395E0;
+}
+
+input:-ms-input-placeholder {
+    color: #A395E0;
+}
+
+input:-moz-placeholder {
+    color: #A395E0;
+}
+
+/* For React DatePicker */
+.date-picker .date-input::placeholder {
+    color: #A395E0;
+}
+
+
 /* Signup Form Styles */
 .Signup-form {
     max-width: 450px;
@@ -36,15 +64,13 @@ body {
     color: red;
     font-size: 14px;
     margin-top: 10px;
-  }
+}
   
-  .success-text {
+.success-text {
     color: green;
     font-size: 14px;
     margin-top: 10px;
-  }
-  
-
+}
 
 .Signup-form .form-title {
     text-align: center;
@@ -110,6 +136,7 @@ body {
     background: #BFB3F2;
 }
 
+/* Input Wrapper */
 .Signup-form .input-wrapper {
     height: 56px;
     width: 100%;
@@ -144,6 +171,7 @@ body {
     transition: 0.2s ease;
     right: 0.9rem;
 }
+
 .Signup-form .input-wrapper i:not(.eye-icon) {
     left: 0.9rem;
     pointer-events: none;
@@ -151,17 +179,6 @@ body {
 
 .Signup-form .input-wrapper .input-field:focus ~ i:not(.eye-icon) {
     color: #5F41E4;
-}
-
-.Singup-form .input-wrapper i .eye-icon {
-    right: 0.9rem;
-    cursor: pointer;
-    font-size: 1.25rem;
-    display: none;
-}
-
-.Signup-form .input-wrapper .input-field:valid ~ i .eye-icon {
-    display: block;
 }
 
 .Signup-form .signup-btn {
@@ -190,18 +207,88 @@ body {
     margin: 1.75rem 0 0.5rem;
 }
 
-.Signup-form a{
+.Signup-form a {
     text-decoration: none;
-    
 }
 
-.Signup-form a:hover{
+.Signup-form a:hover {
     text-decoration: underline;
     color: #4320DF;
-    
+}
+
+/* React-DatePicker Styles */
+.date-picker {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.date-picker .date-picker-label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #5F41E4;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.date-picker .date-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #BFB3F2;
+    border-radius: 0.5rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.date-picker .date-input:focus {
+    border-color: #5F41E4;
+}
+
+.date-picker .react-datepicker-wrapper {
+    width: 100%;
+}
+
+.date-picker .react-datepicker__input-container {
+    width: 100%;
+}
+
+.date-picker .react-datepicker-popper {
+    z-index: 2;
 }
 
 
+.date-input {
+    width: 100%;
+    height: 56px;
+    padding: 0.8rem 2rem 0.8rem 1rem; /* Add padding on the right for the calendar icon */
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+  }
+  
+  .date-input::-webkit-calendar-picker-indicator {
+    opacity: 0.5;
+    cursor: pointer;
+    background: url('https://img.icons8.com/ios-filled/50/000000/calendar.png') no-repeat center;
+    background-size: 20px;
+    padding: 10px;
+  }
+  
+  /* Additional styles for the input */
+  .date-input:focus {
+    border-color: #5f41e4;
+  }
+  
+  .date-picker-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 1rem;
+    color: #a395e0;
+    padding-left: 0.8rem;
+    padding-top: 1.2rem;
+    pointer-events: none;
+  }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
@@ -223,7 +310,8 @@ body {
         font-size: 1rem;
     }
 
-    .Signup-form .input-wrapper .input-field {
+    .Signup-form .input-wrapper .input-field,
+    .date-picker .date-input {
         font-size: 0.95rem;
     }
 
