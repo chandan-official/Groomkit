@@ -24,7 +24,7 @@ export default function Login({ setIsAuthenticated }) {
     try {
       // Send a POST request to the login endpoint
       const response = await axios.post(
-        "http://192.168.165.205:3002/auth/signin",
+        "http://192.168.139.205:3002/auth/signin",
         { email, password },
         { headers: { 'Content-Type': 'application/json' } }
       );

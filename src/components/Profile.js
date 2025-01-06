@@ -57,7 +57,7 @@ export default function Profile() {
     formData.append('email', email); // Add the email to FormData
 
     try {
-      const response = await axios.post('http://192.168.165.205:3002/auth/profile', formData, {
+      const response = await axios.post('http://192.168.139.205:3002/auth/profile', formData, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type for file upload
         },
@@ -74,7 +74,12 @@ export default function Profile() {
         }
       }
     } catch (error) {
-      showError('An error occurred. Please try again.');
+      // Improved error handling
+      if (error.response) {
+        showError(error.response.data.message || 'Error uploading profile picture.');
+      } else {
+        showError('Network error. Please try again.');
+      }
     }
   };
 
@@ -108,7 +113,9 @@ export default function Profile() {
           <p>Date of Birth: {formattedDob}</p>
         </div>
         <div className="action">
-          <button className="reaction">Edit</button>
+          <button className="reaction" onClick={() => showError('Edit functionality not implemented.')}>
+            Edit
+          </button>
           <button className="reaction" onClick={handleSave}>
             Save
           </button>

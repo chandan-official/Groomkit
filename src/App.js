@@ -18,7 +18,6 @@ import NotFound from './components/NotFound';
 // PrivateRoute Component
 const PrivateRoute = ({ isAuthenticated, children }) => {
   if (!isAuthenticated) {
-    localStorage.clear(); // Clear session-related data
     return <Navigate to="/signin" replace />;
   }
   return children;
@@ -27,7 +26,7 @@ const PrivateRoute = ({ isAuthenticated, children }) => {
 // PublicRoute Component
 const PublicRoute = ({ isAuthenticated, children }) => {
   if (isAuthenticated) {
-    return <Navigate to="/userpage" replace />; // Redirect to /userpage if authenticated
+    return <Navigate to="/userpage" replace />;
   }
   return children;
 };
@@ -38,7 +37,7 @@ function App() {
   // Check authentication state on component mount
   useEffect(() => {
     const token = localStorage.getItem('jwtToken');
-    setIsAuthenticated(!!token); // Update state based on token presence
+    setIsAuthenticated(!!token);
   }, []);
 
   // Monitor changes to localStorage to sync authentication state
@@ -60,11 +59,7 @@ function App() {
           {/* Public Routes */}
           <Route
             path="/"
-            element={
-              <PublicRoute isAuthenticated={isAuthenticated}>
-                <Homepage />
-              </PublicRoute>
-            }
+            element={<Homepage />}
           />
           <Route
             path="/signup"
