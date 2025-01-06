@@ -51,7 +51,7 @@ export default function SignUp() {
       // Use moment to format DOB into 'YYYY-MM-DD' format before sending it to the backend
       const formattedDob = moment(dob).format('YYYY-MM-DD'); // Format to 'YYYY-MM-DD'
 
-      const res = await axios.post('http://192.168.165.205:3002/auth/signup', {
+      const res = await axios.post('http://192.168.139.205:3002/auth/signup', {
         name,
         email,
         phone,
